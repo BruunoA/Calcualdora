@@ -5,6 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcualdora</title>
 </head>
+<style>
+
+    body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        user-select: none;
+        background: #e9ebec;
+    }
+
+    .container {
+        width: 300px; /* Ajusta el tamaño según sea necesario */
+        padding: 10px;
+        border-radius: 14px;
+        box-shadow: 13px 13px 20px #306599, -13px -13px 20px #7a3f3f;
+    }
+
+    .display #screen {
+        margin-bottom: 10px;
+        width: 95%;
+        height: 60px;
+        font-size: 30px;
+        outline: none;
+        border: none;
+        text-align: right;
+        padding-right: 10px;
+        background: #f2f3f5;
+        border-radius: 6px;
+        box-shadow: inset 8px 8px 8px #ccd0d4, inset -8px -8px 8px #ffffff;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .row button {
+        flex: 1;
+        height: 50px;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        margin: 5px;
+        border-radius: 4px;
+        transition: .1s;
+        box-shadow: 5px 5px 8px #00000020, -5px -5px 8px #ffffff;
+        background: #ecf0f3;
+    }
+
+    .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    /* Colores específicos para botones */
+    #eval {
+        background: #33ccff;
+        color: #fff;
+        box-shadow: inset 5px 5px 8px #66d9ff, inset -5px -5px 8px #00ace6;
+    }
+
+    #ac {
+        background: #33cc33;
+        color: #fff;
+    }
+
+    #ce {
+        background: #ff3399;
+        color: #fff;
+    }
+
+    .row button:hover {
+        box-shadow: inset 5px 5px 8px rgba(16, 16, 16, .1), inset -5px -5px 8px #ffffff;
+        background: #ffffff;
+    }
+</style>
+<script>
+    var screen = document.querySelector('#screen');
+    var btn = document.querySelectorAll('.btn');
+
+    // Agrega el valor del botón presionado a la pantalla
+    for (let item of btn) {
+        item.addEventListener('click', (e) => {
+            let btntext = e.target.innerText;
+            if (btntext == '×') btntext = '*';
+            if (btntext == '÷') btntext = '/';
+            screen.value += btntext;
+        });
+    }
+    function add(a, b) {
+        return a + b;
+    }
+
+    function subtract(a, b) {
+        return a - b;
+    }
+
+    function multiply(a, b) {
+        return a * b;
+    }
+
+    function divide(a, b) {
+        return b !== 0 ? a / b : 'Error';
+    }
+
+    function evaluateExpression() {
+        let expression = screen.value.replace(/[^-()\d/*+.]/g, ''); // Remueve caracteres inválidos
+        let tokens = expression.split(/([\+\-\*\/])/).filter(Boolean); // Divide la expresión por operadores
+        
+        if (tokens.length < 3) {
+            screen.value = "Error";
+            return;
+        }
+
+        let result = parseFloat(tokens[0]);
+        
+        for (let i = 1; i < tokens.length; i += 2) {
+            const operator = tokens[i];
+            const nextValue = parseFloat(tokens[i + 1]);
+            if (isNaN(nextValue)) {
+                screen.value = "Error";
+                return;
+            }
+            switch (operator) {
+                case '+':
+                    result = add(result, nextValue);
+                    break;
+                case '-':
+                    result = subtract(result, nextValue);
+                    break;
+                case '*':
+                    result = multiply(result, nextValue);
+                    break;
+                case '/':
+                    result = divide(result, nextValue);
+                    break;
+            }
+        }
+        
+        screen.value = result;
+    }
+</script>
 <body>
     <div class="container">
         <div class="display">
