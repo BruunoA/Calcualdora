@@ -5,6 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calcualdora</title>
 </head>
+<style>
+    <style>
+    body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        user-select: none;
+        background: #e9ebec;
+    }
+
+    .container {
+        width: 300px; /* Ajusta el tamaño según sea necesario */
+        padding: 10px;
+        border-radius: 14px;
+        box-shadow: 13px 13px 20px #306599, -13px -13px 20px #7a3f3f;
+    }
+
+    .display #screen {
+        margin-bottom: 10px;
+        width: 95%;
+        height: 60px;
+        font-size: 30px;
+        outline: none;
+        border: none;
+        text-align: right;
+        padding-right: 10px;
+        background: #f2f3f5;
+        border-radius: 6px;
+        box-shadow: inset 8px 8px 8px #ccd0d4, inset -8px -8px 8px #ffffff;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .row button {
+        flex: 1;
+        height: 50px;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        margin: 5px;
+        border-radius: 4px;
+        transition: .1s;
+        box-shadow: 5px 5px 8px #00000020, -5px -5px 8px #ffffff;
+        background: #ecf0f3;
+    }
+
+    .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    /* Colores específicos para botones */
+    #eval {
+        background: #33ccff;
+        color: #fff;
+        box-shadow: inset 5px 5px 8px #66d9ff, inset -5px -5px 8px #00ace6;
+    }
+
+    #ac {
+        background: #33cc33;
+        color: #fff;
+    }
+
+    #ce {
+        background: #ff3399;
+        color: #fff;
+    }
+
+    .row button:hover {
+        box-shadow: inset 5px 5px 8px rgba(16, 16, 16, .1), inset -5px -5px 8px #ffffff;
+        background: #ffffff;
+    }
+</style>
+</style>
 <body>
     <div class="container">
         <div class="display">
