@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: arial;
+    background-color: rgb(0, 102, 128);
+    display: flex;               /* Usamos flex para el cuerpo */
+    justify-content: center;     /* Centrado horizontal */
+    align-items: center;         /* Centrado vertical */
+    min-height: 100vh;           /* Asegura que el cuerpo tenga al menos el 100% de la altura de la ventana */
+    flex-direction: column;      /* Alineación vertical de los elementos */
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: center;     /* Centra los botones horizontalmente */
+    align-items: center;         /* Centra los botones verticalmente */
+    margin-bottom: 20px;         /* Espacio debajo de los botones */
+}
+
+.buttons {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;           /* Reduce el espaciado interno */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;             /* Reduce el tamaño del texto */
+    cursor: pointer;
+    width: auto;                 /* Ajusta el ancho según el contenido */
+    transition: background-color 0.3s ease;
+    margin: 0 5px;               /* Espacio horizontal entre los botones */
+}
+
+.buttons:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para la sección que muestra la información del navegador y del usuario */
+#infoNavegador {
+    display: none;               /* Inicialmente oculto */
+    margin-top: 20px;            /* Espacio desde los botones */
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+    color: #333;
+    width: 100%;                 /* Asegura que ocupe el ancho disponible */
+    max-width: 400px;            /* Limita el ancho máximo */
+    text-align: left;            /* Alinea el texto a la izquierda */
+}
+
+/* Estilo de los encabezados y párrafos dentro del div de información */
+#infoNavegador h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#infoNavegador p {
+    font-size: 14px;
+    line-height: 1.6;
+}

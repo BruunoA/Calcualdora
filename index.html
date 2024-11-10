@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Contenedor de botones de navegación -->
+    <div class="navigation-buttons">
+        <button class="buttons" onclick="location.href='pages/calculadora.html'">Ir a Calculadora</button>
+        <button class="buttons" onclick="location.href='pages/calculadora_cient.html'">Ir a Calculadora Científica</button>
+        <button class="buttons" onclick="mostrarInfoNavegador()">Mostrar Información del Navegador</button>
+        <button class="buttons" onclick="salir()">Salir</button>  <!-- Botón de salir -->
+    </div>
+
+    <!-- Sección para mostrar la información del navegador y localStorage, debajo de los botones -->
+    <div id="infoNavegador" style="display:none; margin-top: 20px; background-color: #f1f1f1; padding: 15px; border-radius: 8px; color: #333;">
+        <h3>Información del Navegador y Usuario</h3>
+        <p id="navegadorInfo"></p>
+    </div>
+
+    <script>
+        // Función para mostrar la información del navegador y localStorage
+        function mostrarInfoNavegador() {
+            const navegador = navigator.userAgent;
+            const nombreNavegador = navigator.appName;
+            const versionNavegador = navigator.appVersion;
+            const plataforma = navigator.platform;
+            
+            const nombreGuardado = localStorage.getItem("usuario");
+            const seleccionGuardada = localStorage.getItem("opcion");
+
+            let mensaje = `
+                <strong>Nombre del Navegador:</strong> ${nombreNavegador}<br>
+                <strong>Versión:</strong> ${versionNavegador}<br>
+                <strong>Plataforma:</strong> ${plataforma}<br>
+                <strong>Detalles completos (userAgent):</strong> ${navegador}<br><br>
+            `;
+
+            if (nombreGuardado && seleccionGuardada) {
+                const seleccionSinExtension = seleccionGuardada.replace('pages/', '').replace('.html', '');
+                mensaje += ` 
+                    <strong>Nombre de Usuario:</strong> ${nombreGuardado}<br>
+                    <strong>Opción Seleccionada:</strong> ${seleccionSinExtension}<br>
+                `;
+            } else {
+                mensaje += `
+                    <strong>Nombre de Usuario:</strong> No disponible<br>
+                    <strong>Opción Seleccionada:</strong> No disponible<br>
+                `;
+            }
+
+            document.getElementById("navegadorInfo").innerHTML = mensaje;
+            
+            const infoDiv = document.getElementById("infoNavegador");
+            if (infoDiv.style.display === 'none') {
+                infoDiv.style.display = 'block';
+            } else {
+                infoDiv.style.display = 'none';
+            }
+        }
+
+        // Función para eliminar localStorage y redirigir al login
+        function salir() {
+            // Eliminar los datos del localStorage
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('opcion');
+
+            // Redirigir al login (puedes cambiar "index.html" por la URL que prefieras)
+            window.location.href = 'login.html';  // Redirige a la página de login
+        }
+    </script>
+</body>
+</html>

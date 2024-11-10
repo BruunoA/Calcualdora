@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calculadora_cient.css">
+    <title>Calculadora Científica</title>
+</head>
+
+<body>
+
+    <div class="navigation">
+        <button onclick="goBack()">Atrás</button>
+        <button onclick="goForward()">Adelante</button>
+    </div>
+
+    <div class="container">
+        <div class="display">
+            <input id="screen" type="text" placeholder="0" readonly>
+        </div>
+        <!-- Menú -->
+        <div class="menu">
+            <span id="nombreUsuario" class="nombre-usuario"></span>
+            <button class="menu-btn" onclick="location.href='/index.html'">Inicio</button>
+            <button class="menu-btn" onclick="location.href='/pages/calculadora.html'">Calculadora</button>
+            <button class="menu-btn" onclick="location.href='/pages/calculadora_cient.html'">Calculadora Científica</button>
+            <button class="menu-btn" onclick="salir()">Salir</button> 
+        </div>
+        
+        <div class="btns">
+            <div class="row">
+                <button id="ce" onclick="backspc()">CE</button>
+                <button id="ac" onclick="screen.value=''">AC</button>
+                <button onclick="appendToScreen('%')">%</button>
+                <button onclick="calculateSqrt()">√</button>
+            </div>
+
+            <div class="row">
+                <button onclick="calculateSin()">sin</button>
+                <button onclick="calculateCos()">cos</button>
+                <button onclick="calculateTan()">tan</button>
+                <button onclick="appendToScreen('÷')">÷</button>
+            </div>
+
+            <div class="row">
+                <button onclick="appendToScreen('7')">7</button>
+                <button onclick="appendToScreen('8')">8</button>
+                <button onclick="appendToScreen('9')">9</button>
+                <button onclick="multiply()">×</button>
+            </div>
+
+            <div class="row">
+                <button onclick="appendToScreen('4')">4</button>
+                <button onclick="appendToScreen('5')">5</button>
+                <button onclick="appendToScreen('6')">6</button>
+                <button onclick="subtract()">-</button>
+            </div>
+
+            <div class="row">
+                <button onclick="appendToScreen('1')">1</button>
+                <button onclick="appendToScreen('2')">2</button>
+                <button onclick="appendToScreen('3')">3</button>
+                <button onclick="add()">+</button>
+            </div>
+
+            <div class="row">
+                <button onclick="appendToScreen('0')">0</button>
+                <button onclick="appendToScreen('.')">.</button>
+                <button id="eval" onclick="evaluateExpression()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarNombreYSeleccion() {
+            const nombreGuardado = localStorage.getItem("usuario");
+            const seleccionGuardada = localStorage.getItem("opcion");
+
+            // Verificar si los datos están presentes en localStorage
+            if (nombreGuardado && seleccionGuardada) {
+                // Eliminar la extensión .html de la opción seleccionada
+                const seleccionSinExtension = seleccionGuardada.replace('pages/', '').replace('.html', '');
+                document.getElementById("nombreUsuario").textContent = "Hola, " + nombreGuardado + " | " + seleccionSinExtension;
+            } else {
+                document.getElementById("nombreUsuario").textContent = "Bienvenido, invitado";
+            }
+        }
+        // Llamar a la función cuando se cargue la página
+        window.onload = mostrarNombreYSeleccion;
+
+        function salir() {
+            // Eliminar los datos del localStorage
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('opcion');
+
+            // Redirigir al login 
+            window.location.href = '/login.html';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para ir a la siguiente página en el historial
+        function goForward() {
+            window.history.forward();
+        }
+
+
+        var screen = document.querySelector('#screen');
+
+        // Función para añadir valores a la pantalla
+        function appendToScreen(value) {
+            screen.value += value;
+        }
+
+        // Función para borrar el último valor (CE)
+        function backspc() {
+            screen.value = screen.value.slice(0, -1);
+        }
+
+        // Función para sumar
+        function add() {
+            screen.value += '+';
+        }
+
+        // Función para restar
+        function subtract() {
+            screen.value += '-';
+        }
+
+        // Función para multiplicar
+        function multiply() {
+            screen.value += '×';
+        }
+
+        // Función para dividir
+        function divide() {
+            screen.value += '÷';
+        }
+
+        // Función para evaluar la expresión
+        function evaluateExpression() {
+            try {
+                screen.value = eval(screen.value.replace(/÷/g, '/').replace(/×/g, '*'));
+            } catch {
+                screen.value = "Error";
+            }
+        }
+
+        // Función para calcular el seno
+        function calculateSin() {
+            try {
+                screen.value = Math.sin(toRadians(parseFloat(screen.value))).toFixed(5);
+            } catch {
+                screen.value = "Error";
+            }
+        }
+
+        // Función para calcular el coseno
+        function calculateCos() {
+            try {
+                screen.value = Math.cos(toRadians(parseFloat(screen.value))).toFixed(5);
+            } catch {
+                screen.value = "Error";
+            }
+        }
+
+        // Función para calcular la tangente
+        function calculateTan() {
+            try {
+                screen.value = Math.tan(toRadians(parseFloat(screen.value))).toFixed(5);
+            } catch {
+                screen.value = "Error";
+            }
+        }
+
+        // Función para calcular la raíz cuadrada
+        function calculateSqrt() {
+            try {
+                let result = Math.sqrt(parseFloat(screen.value));
+                screen.value = Math.round(result); // Redondear al entero más cercano
+            } catch {
+                screen.value = "Error";
+            }
+        }
+
+        // Función para convertir grados a radianes
+        function toRadians(angle) {
+            return angle * (Math.PI / 180);
+        }
+    </script>
+</body>
+
+</html>
