@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Formulario Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section class="form-login">
+        <h5>Login</h5>
+        <input class="controls" type="text" id="usuario" name="usuario" placeholder="Usuario">
+        <select class="controls" name="opcion" id="opcion">
+            <option value="">Selecciona una opción</option>
+            <option value="pages/calculadora.html">Calculadora</option>
+            <option value="pages/calculadora_cient.html">Calculadora Científica</option>
+        </select>
+
+        <!-- Botón con evento de redirección -->
+        <button class="buttons" onclick="redirogirPagina()">Ingresar</button>
+        <p><a href="#">Copyright 2024 </a></p>
+        <span id="mensajeError"></span>
+    </section>
+
+    <script>
+        function redirogirPagina() {
+            var usuario = document.getElementById("usuario").value;
+            var opcionselec = document.getElementById("opcion").value;
+            var mensajeError = document.getElementById("mensajeError");
+
+            mensajeError.style.display = 'none';
+            mensajeError.textContent = '';
+
+            if (!usuario) {
+                mensajeError.textContent = 'Por favor ingrese su nombre de usuario';
+                mensajeError.style.display = 'block';
+                return;
+            }
+
+            if (!opcionselec) {
+                mensajeError.textContent = 'Por favor seleccione una opción';
+                mensajeError.style.display = 'block';
+                return;
+            }
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("opcion", opcionselec);
+
+            // Verificar si los datos se guardaron correctamente
+            console.log("Nombre guardado:", localStorage.getItem("usuario"));
+            console.log("Selección guardada:", localStorage.getItem("opcion"));
+
+            // Redirigir a la página Index
+            window.location.href = "index.html";
+        }
+
+    </script>
+</body>
+
+</html>
